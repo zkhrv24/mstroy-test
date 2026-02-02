@@ -42,7 +42,7 @@ export class TreeStore {
   }
 
   getAll(): Item[] {
-    return this.items;
+    return [...this.items];
   }
 
   getItem(id: ItemId): Item | undefined {
@@ -118,10 +118,12 @@ export class TreeStore {
     if (!item) return;
 
     const allChildren = this.getAllChildren(id);
-    const childrenIds = allChildren.map((child) => child.id);
+    const childrenIdsSet = new Set<ItemId>(
+      allChildren.map((child) => child.id),
+    );
 
     this.items = this.items.filter(
-      (item) => item.id !== id && !childrenIds.includes(item.id),
+      (item) => item.id !== id && !childrenIdsSet.has(item.id),
     );
 
     this.initMaps();
