@@ -5,3 +5,12 @@ export interface Item {
   parent: ItemId | null;
   label: string;
 }
+
+export interface GridItem {
+  id: ItemId;
+  parentId: ItemId | null;
+  label: string;
+  category: 'Группа' | 'Элемент';
+  index: number;
+  hasChildren?: boolean;
+}
